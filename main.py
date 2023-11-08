@@ -51,7 +51,7 @@ def mainScrapper(category):
             if imgTag:
                 imgSrcList.append({"category": category, "imgSrc": imgTag['src'].replace("/236x/", "/600x/")})
                 print(imgSrcList[-1])
-
+    
 driver.find_element(By.XPATH, """//div[@data-test-id="simple-login-button"]""").click()
 driver.find_element(By.XPATH, """//input[@id="email"]""").send_keys("himanshujetani2211@gmail.com")
 driver.find_element(By.XPATH, """//input[@id="password"]""").send_keys("Patidar1621@")

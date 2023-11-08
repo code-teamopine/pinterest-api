@@ -38,25 +38,32 @@ def fetch_data():
 async def fetch_records():
     records = fetch_data()
 
-    # Group records by category
-    records_by_category = defaultdict(list)
+    categories = {}
+
     for record in records:
         imgfile = record[0]
         # imgsrc = record[1]
         category = record[2]
+        Subtitle = record[3]
+        covimg = record[4]
 
         # Create a link for imgfile
         imgfile_link = f"/{imgfile}"
+        covimg_link = f"/{covimg}"
+        
+        # If the category doesn't exist in categories, create a new entry
+        if category not in categories:
+            categories[category] = {
+                "categoryName": category,
+                "imgUrl": [],
+                "Subtitle": Subtitle,
+                "coverimage": covimg_link,
+            }
 
-        records_by_category[category].append(imgfile_link)
+        # Append the image URL to the appropriate category
+        categories[category]["imgUrl"].append(imgfile_link)
 
-    # Create the final response structure
-    response = {}
-    for category, img_urls in records_by_category.items():
-        collection = {
-            "categoryName": category,
-            "imgUrl": img_urls
-        }
-        response[f"collection{len(response) + 1}"] = collection
-
+    # Convert the dictionary values to a list
+    response_data = list(categories.values())
+    response = {"data": response_data}
     return response
