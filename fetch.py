@@ -46,7 +46,8 @@ async def fetch_records():
         category = record[2]
         Subtitle = record[3]
         covimg = record[4]
-
+        category_id = record[5]
+        product_id = record[6]
         # Create a link for imgfile
         imgfile_link = f"/{imgfile}"
         covimg_link = f"/{covimg}"
@@ -54,14 +55,20 @@ async def fetch_records():
         # If the category doesn't exist in categories, create a new entry
         if category not in categories:
             categories[category] = {
+                "category_id": category_id,
                 "categoryName": category,
-                "imgUrl": [],
-                "Subtitle": Subtitle,
+                "images": [],
+                "subtitle": Subtitle,
                 "coverimage": covimg_link,
             }
 
+        image_entry = {
+            "image_id": product_id,
+            "img_url": imgfile_link,
+        }
+
         # Append the image URL to the appropriate category
-        categories[category]["imgUrl"].append(imgfile_link)
+        categories[category]["images"].append(image_entry)
 
     # Convert the dictionary values to a list
     response_data = list(categories.values())
