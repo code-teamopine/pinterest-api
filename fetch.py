@@ -13,8 +13,8 @@ def fetch_data():
     # Connect to the MySQL database
     conn = mysql.connector.connect(
         host='localhost',
-        user='root',
-        password='root',
+        user='PinAPIUser',
+        password='Pin@API1234',
         database='wallpapers',
     )
 
