@@ -10,8 +10,8 @@ driver, hrefsList, imgSrcList = webdriver.Chrome(service=Service(ChromeDriverMan
 driver.get("https://in.pinterest.com/")
 time.sleep(6)
 
-def mainScrapper(limit):
-    driver.get("https://in.pinterest.com/pin/647462883938225514/")
+def mainScrapper(imageUrl: str, limit: int = 40) -> None:
+    driver.get(imageUrl)
     time.sleep(5)
     scraped_images = 0
 
@@ -62,7 +62,6 @@ driver.find_element(By.XPATH, """//input[@id="email"]""").send_keys("himanshujet
 driver.find_element(By.XPATH, """//input[@id="password"]""").send_keys("Patidar1621@")
 driver.find_element(By.XPATH, """//div[@data-test-id="registerFormSubmitButton"]""").click()
 time.sleep(4)
-limit = 40
-mainScrapper(limit)
-pd.DataFrame(imgSrcList).to_csv('imageSrcData4.csv', index=False)
+mainScrapper()
+pd.DataFrame(imgSrcList).to_parquet('imageData.parquet', index=False)
 driver.quit()

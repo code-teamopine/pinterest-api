@@ -12,7 +12,7 @@ mysql_config = {
 }
 
 # Read the CSV file into a DataFrame
-df = pd.read_csv('imageSrcData4.csv')
+df = pd.read_parquet('imageData.parquet')
 
 # Connect to the MySQL database
 conn = mysql.connector.connect(**mysql_config)
