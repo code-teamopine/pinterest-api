@@ -59,5 +59,5 @@ driver.find_element(By.XPATH, """//div[@data-test-id="registerFormSubmitButton"]
 time.sleep(4)
 mainScrapper('cars')
 hrefsList = []
-pd.DataFrame(imgSrcList).to_csv('imageSrcData4.csv', index=False)
+pd.DataFrame(imgSrcList).to_parquet('imageData.parquet', index=False)
 driver.quit()
