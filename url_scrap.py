@@ -10,7 +10,7 @@ driver, hrefsList, imgSrcList = webdriver.Chrome(service=Service(ChromeDriverMan
 driver.get("https://in.pinterest.com/")
 time.sleep(6)
 
-def mainScrapper(imageUrl: str, limit: int = 40) -> None:
+def mainScrapper(imageUrl: str, category: str, limit: int = 40) -> None:
     driver.get(imageUrl)
     time.sleep(5)
     scraped_images = 0
@@ -53,7 +53,7 @@ def mainScrapper(imageUrl: str, limit: int = 40) -> None:
             divSoup = BeautifulSoup(divTag.get_attribute('innerHTML'), "html.parser")
             imgTag = divSoup.find('img')
             if imgTag:
-                imgSrcList.append({"category": 'Sea waves wallpapper for iphone', "imgSrc": imgTag['src'].replace("/236x/", "/600x/")})
+                imgSrcList.append({"category": category, "imgSrc": imgTag['src'].replace("/236x/", "/600x/")})
                 print(imgSrcList[-1])
                 scraped_images += 1
 
@@ -62,6 +62,6 @@ driver.find_element(By.XPATH, """//input[@id="email"]""").send_keys("himanshujet
 driver.find_element(By.XPATH, """//input[@id="password"]""").send_keys("Patidar1621@")
 driver.find_element(By.XPATH, """//div[@data-test-id="registerFormSubmitButton"]""").click()
 time.sleep(4)
-mainScrapper()
-pd.DataFrame(imgSrcList).to_parquet('imageData.parquet', index=False)
+mainScrapper("https://in.pinterest.com/pin/893331276073193961/", "Free Walls")
+pd.DataFrame(imgSrcList).to_parquet('dataFiles/freeWallsImageData.parquet', index=False)
 driver.quit()

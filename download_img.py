@@ -17,14 +17,15 @@ def download_image(url, index):
         img = Image.open(BytesIO(image_data))
         img_name = url.split('/')[-1]
         # Save the image to a local file
-        img.save(f"Images/{img_name}")
+        img.save(f"images/{img_name}")
 
         print(f"{index + 1}. Image downloaded and saved as {img_name}")
     else:
         print(f"{index + 1}. Failed to download the image. HTTP status code:", response.status_code)
 
-df = pd.read_csv('alldata.csv')
-url_list = df['imgSrc'].to_list()
+df = pd.read_parquet('dataFiles/coupleWallsImageData.parquet')
+print(df)
+# url_list = df['imgSrc'].to_list()
 
-for index, url in enumerate(url_list, 0):  # Start the index at 1
-    download_image(url, index)
+# for index, url in enumerate(url_list, 0):  # Start the index at 1
+#     download_image(url, index)
