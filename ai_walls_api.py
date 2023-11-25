@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-import MySQLdb
+import pymysql as MySQLdb
+MySQLdb.install_as_MySQLdb()
 
 app = FastAPI()
 IMAGEDIR = 'images'
 app.mount("/images", StaticFiles(directory=IMAGEDIR), name="images")
 
 def db_connector() -> tuple:
-    dbConn = MySQLdb.connect(user='PinAPIUser', passwd='Pin@API1234', host='192.168.1.175', port=3306, db='wallpapers')
+    dbConn = MySQLdb.connect(user='PinAPIUser', passwd='Pin@API1234', host='localhost', port=3306, db='wallpapers')
     cursor = dbConn.cursor(MySQLdb.cursors.DictCursor)
     return dbConn, cursor
 
