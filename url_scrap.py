@@ -41,7 +41,6 @@ def mainScrapper(imageUrl: str, category: str, limit: int = 40) -> None:
     for hrefData in hrefsList:
         if scraped_images >= limit:
             break
-
         driver.get(hrefData)
         divTag = None
         time.sleep(3)
@@ -58,10 +57,10 @@ def mainScrapper(imageUrl: str, category: str, limit: int = 40) -> None:
                 scraped_images += 1
 
 driver.find_element(By.XPATH, """//div[@data-test-id="simple-login-button"]""").click()
-driver.find_element(By.XPATH, """//input[@id="email"]""").send_keys("himanshujetani2211@gmail.com")
+driver.find_element(By.XPATH, """//input[@id="email"]""").send_keys("a6141665644507@crankymonkey.info")
 driver.find_element(By.XPATH, """//input[@id="password"]""").send_keys("Patidar1621@")
 driver.find_element(By.XPATH, """//div[@data-test-id="registerFormSubmitButton"]""").click()
 time.sleep(4)
-mainScrapper("https://in.pinterest.com/pin/893331276073193961/", "Free Walls")
-pd.DataFrame(imgSrcList).to_parquet('dataFiles/freeWallsImageData.parquet', index=False)
+mainScrapper("https://in.pinterest.com/pin/1101341283858779372/", "WaterColour Wonders")
+pd.DataFrame(imgSrcList).to_parquet('dataFiles/WaterColour Wonders3.parquet', index=False)
 driver.quit()

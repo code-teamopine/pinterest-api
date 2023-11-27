@@ -23,9 +23,9 @@ def download_image(url, index):
     else:
         print(f"{index + 1}. Failed to download the image. HTTP status code:", response.status_code)
 
-df = pd.read_parquet('dataFiles/coupleWallsImageData.parquet')
-print(df)
-# url_list = df['imgSrc'].to_list()
+df = pd.read_parquet('dataFiles/WaterColour Wonders4.parquet')
+# print(df)
+url_list = df['imgSrc'].to_list()
 
-# for index, url in enumerate(url_list, 0):  # Start the index at 1
-#     download_image(url, index)
+for index, url in enumerate(url_list, 0):  # Start the index at 1
+    download_image(url, index)

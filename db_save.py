@@ -1,4 +1,5 @@
-import MySQLdb, pandas as pd
+import pymysql as MySQLdb, pandas as pd
+MySQLdb.install_as_MySQLdb()
 
 def db_connector() -> tuple:
     dbConn = MySQLdb.connect(user='PinAPIUser', passwd='Pin@API1234', host='192.168.1.175', port=3306, db='wallpapers')
@@ -12,7 +13,7 @@ def db_closer(conn_tuple: tuple) -> None:
 
 
 def main() -> None:
-    data_list = pd.read_parquet('dataFiles/wildKingdomWondersImageData.parquet').to_dict('records')
+    data_list = pd.read_parquet('dataFiles/Floral Paradise1.parquet').to_dict('records')
     for data_dict in data_list:
         conn_tuple = db_connector()
         try:
