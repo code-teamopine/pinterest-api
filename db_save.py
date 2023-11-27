@@ -13,7 +13,7 @@ def db_closer(conn_tuple: tuple) -> None:
 
 
 def main() -> None:
-    data_list = pd.read_parquet('dataFiles/Floral Paradise1.parquet').to_dict('records')
+    data_list = pd.read_parquet('dataFiles/Silence of Nature5.parquet').to_dict('records')
     for data_dict in data_list:
         conn_tuple = db_connector()
         try:

@@ -57,10 +57,10 @@ def mainScrapper(imageUrl: str, category: str, limit: int = 40) -> None:
                 scraped_images += 1
 
 driver.find_element(By.XPATH, """//div[@data-test-id="simple-login-button"]""").click()
-driver.find_element(By.XPATH, """//input[@id="email"]""").send_keys("a6141665644507@crankymonkey.info")
-driver.find_element(By.XPATH, """//input[@id="password"]""").send_keys("Patidar1621@")
+driver.find_element(By.XPATH, """//input[@id="email"]""").send_keys("bicica2345@dpsols.com")
+driver.find_element(By.XPATH, """//input[@id="password"]""").send_keys("Abc@123")
 driver.find_element(By.XPATH, """//div[@data-test-id="registerFormSubmitButton"]""").click()
 time.sleep(4)
-mainScrapper("https://in.pinterest.com/pin/1101341283858779372/", "WaterColour Wonders")
-pd.DataFrame(imgSrcList).to_parquet('dataFiles/WaterColour Wonders3.parquet', index=False)
+mainScrapper("https://in.pinterest.com/search/pins/?q=Minimal%20wallpaper&rs=srs&b_id=BPAxk04P-8VSAAAAAAAAAADidZktMB9ggZe-ZxCcC09qU4H2psH7_FWi_FBdeCfZJsDWz6TjtPl_td8aB1yWDvQ&source_id=rlp_Z6JfgBBy", "Free Walls")
+pd.DataFrame(imgSrcList).to_parquet('dataFiles/Free Walls7.parquet', index=False)
 driver.quit()
