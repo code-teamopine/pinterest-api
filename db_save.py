@@ -1,32 +1,28 @@
-import pymysql as MySQLdb, pandas as pd
-MySQLdb.install_as_MySQLdb()
-
-def db_connector() -> tuple:
-    dbConn = MySQLdb.connect(user='PinAPIUser', passwd='Pin@API1234', host='192.168.1.175', port=3306, db='wallpapers')
-    cursor = dbConn.cursor(MySQLdb.cursors.DictCursor)
-    return dbConn, cursor
-
-
-def db_closer(conn_tuple: tuple) -> None:
-    conn_tuple[1].close()
-    conn_tuple[0].close()
-
+from database import Mysql
+import pandas as pd
 
 def main() -> None:
     data_list = pd.read_parquet('dataFiles/Silence of Nature5.parquet').to_dict('records')
     for data_dict in data_list:
-        conn_tuple = db_connector()
+        database_obj = Mysql()
         try:
-            conn_tuple[1].execute("select cat_id as category_id from category where cat_name = %s", [data_dict['category']])
-            category_id, img_file = conn_tuple[1].fetchone()['category_id'], 'images/' + data_dict['imgSrc'].split('/')[-1]
+            data_dict = database_obj.select(query_str="select cat_id as category_id from category where cat_name = %s", query_params=(data_dict['category']), is_fetch_one=True)
+            category_id, img_file = data_dict['category_id'], 'images/' + data_dict['imgSrc'].split('/')[-1]
             print(data_dict['imgSrc'], img_file, category_id)
-            conn_tuple[1].execute("insert into images(img_src, img_file, category_id) values(%s, %s, %s)", [data_dict['imgSrc'], img_file, category_id])
-            conn_tuple[0].commit()
+            database_obj.insert_update_delete(query_str="insert into images(img_src, img_file, category_id) values(%s, %s, %s)", query_params=(data_dict['imgSrc'], img_file, category_id))
         except Exception as e:
             print(e)
-            conn_tuple[0].rollback()
+            database_obj.rollback()
         finally:
-            db_closer(conn_tuple)
+            del database_obj
 
+def change() -> None:
+    db_obj = Mysql()
+    try:
+        db_obj.insert_update_delete(query_str="update images set category_id = %s where img_id between %s and %s", query_params=(3, 1081, 1116))
+    except Exception as e:
+        print(e)
+    finally:
+        del db_obj
 
 main()
