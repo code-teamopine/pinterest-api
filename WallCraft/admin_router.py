@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request, File, UploadFile, Form
 from fastapi.responses import HTMLResponse
-from . import auth, services, schema
+from . import auth, services
 from typing import Annotated
 from datetime import timedelta
 from fastapi.security import OAuth2PasswordRequestForm
