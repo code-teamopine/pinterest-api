@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | Admin{% endblock %}
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col">
+                    <a href="/admin/category/add">Add Category</a>
+                </div>
+                <div class="col">
+                    <a href="/admin/image/add">Add Image</a>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <h4>Category</h4>
+                </div>
+            </div>
+            <div class="row" id="categoryGridDivId">
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block js %}
+<script src="{{ url_for('static', path='/js/index.js') }}"></script>
+{% endblock %}

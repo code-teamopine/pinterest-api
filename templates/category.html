@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Category | Admin{% endblock %}
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row mt-5">
+                <h4>Category: <span id="catNameId"></span></h4>
+                <h6>Sub Title: <span id="catSubTitleId"></span></h6>
+            </div>
+            <div class="row" id="categoryImagesGridId">
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block js %}
+    <script>
+        const catId = Number(`{{ cat_id }}`)
+    </script>
+<script src="{{ url_for('static', path='/js/category.js') }}"></script>
+{% endblock %}

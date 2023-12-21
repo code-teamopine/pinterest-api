@@ -1,5 +1,5 @@
 from database import Mysql
-import pandas as pd
+import pandas as pd, hashlib
 
 def main() -> None:
     data_list = pd.read_parquet('dataFiles/Wild Kingdom Wonders4.parquet').to_dict('records')
@@ -16,13 +16,13 @@ def main() -> None:
         finally:
             del database_obj
 
-def change() -> None:
+def add_user():
     db_obj = Mysql()
     try:
-        db_obj.insert_update_delete(query_str="update images set category_id = %s where img_id between %s and %s", query_params=(3, 1081, 1116))
+        db_obj.insert_update_delete(query_str="insert into user(username, password) values(%s, %s)", query_params=("wallCraftAdmin", hashlib.sha1(bytes("w@llCr@ft@dmin", 'utf-8')).hexdigest()))
     except Exception as e:
         print(e)
     finally:
         del db_obj
 
-main()
+add_user()
