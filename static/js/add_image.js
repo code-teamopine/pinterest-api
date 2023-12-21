@@ -1,8 +1,6 @@
 document.querySelector('#addImageFormId').addEventListener("submit", (e) => {
     e.preventDefault()
-    const categoryId = Number(e.target.elements['catNameSelect'].value)
-    const imgFile = e.target.elements['imageInput'].files[0]
-    const imgIsActive = e.target.elements['imageIsActiveCheckBox'].checked
+    const categoryId = Number(e.target.elements['catNameSelect'].value), imgFile = e.target.elements['imageInput'].files[0], imgIsActive = e.target.elements['imageIsActiveCheckBox'].checked
 
     if (! categoryId) {
         alert('please select any category.')

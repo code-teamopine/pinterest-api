@@ -3,6 +3,9 @@
 {% block body %}
     <section>
         <div class="container">
+            <div class="row mt-3">
+                <a id="editCategoryBtnId">Edit Category</a>
+            </div>
             <div class="row mt-5">
                 <h4>Category: <span id="catNameId"></span></h4>
                 <h6>Sub Title: <span id="catSubTitleId"></span></h6>
@@ -16,5 +19,5 @@
     <script>
         const catId = Number(`{{ cat_id }}`)
     </script>
-<script src="{{ url_for('static', path='/js/category.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/category.js') }}"></script>
 {% endblock %}

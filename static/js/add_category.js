@@ -1,9 +1,6 @@
 document.querySelector('#addCategoryFormId').addEventListener("submit", (e) => {
     e.preventDefault()
-    const catName = e.target.elements['catNameInput'].value
-    const catSubTitle = e.target.elements['catSubTitleInput'].value
-    const catCoverImage = e.target.elements['catCoverImageInput'].files[0]
-    const catIsActive = e.target.elements['catIsActiveCheckBox'].checked
+    const catName = e.target.elements['catNameInput'].value, catSubTitle = e.target.elements['catSubTitleInput'].value, catCoverImage = e.target.elements['catCoverImageInput'].files[0], catIsActive = e.target.elements['catIsActiveCheckBox'].checked
     
     if (! catName) {
         alert('Category Name is required.')

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Edit Image | Admin{% endblock %}
+{% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+    <div class="container mt-5">
+        <form id="editImageFormId" class="form-data" enctype="multipart/form-data">
+            <select class="form-control mb-3" name="catNameSelect" id="catNameSelect"></select>
+            <img id="imgImgId" height="100px" width="100px" alt="img"/>
+            <input type="file" class="form-control my-3" id="imageInput" name="imageInput">
+            <label class="form-check-label" for="imageIsActiveCheckBox">is Active</label>
+            <input class="form-check-input" type="checkbox" value="" id="imageIsActiveCheckBox" name="imageIsActiveCheckBox">
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        const imgId = Number(`{{ img_id }}`)
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ url_for('static', path='/js/edit_image.js') }}"></script>
+{% endblock %}

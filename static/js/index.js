@@ -18,6 +18,7 @@ function getCategory() {
                                         <div class="card-body">
                                             <h5 class="card-title">${categoryObj.cat_name}</h5>
                                             <p class="card-text">${categoryObj.cat_sub_title}</p>
+                                            <span>Active </span><i class="${categoryObj.cat_is_active ? "bi bi-check-circle" : "bi bi-x-circle"}"></i>
                                         </div>
                                     </a>
                                 </div>

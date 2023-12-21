@@ -9,10 +9,13 @@ function getCategoryData() {
             window.location.href = '/admin/login'
         }
 
-        if (body.success) {
+        if (body.success === true) {
             document.querySelector('#catNameId').innerHTML = body.data.cat_name
             document.querySelector('#catSubTitleId').innerHTML = body.data.cat_sub_title
             forScrollerSet(pageNoAndFlagObj, getCategoryImages, '#categoryImagesGridId')
+        }
+        else {
+            alert(body.msg)
         }
     })
 }
@@ -31,6 +34,10 @@ function getCategoryImages() {
                 htmlStr += `<div class="col">
                                 <div class="card" style="width: 18rem;">
                                     <img src="/${imgObj.img_file}" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <a class="btn btn-warning btn-sm" href="/admin/image/edit/${imgObj.img_id}">Edit</a>
+                                        <span>Active - <i class="${imgObj.img_is_active ? "bi bi-check-circle" : "bi bi-x-circle"}"></i></span>
+                                    </div>
                                 </div>
                             </div>`
             })
@@ -44,6 +51,7 @@ function getCategoryImages() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('#editCategoryBtnId').href = `/admin/category/edit/${catId}`
     getCategoryData()
 })
 
