@@ -25,8 +25,7 @@ function getCategoryImages() {
             localStorage.removeItem('access_token')
             window.location.href = '/admin/login'
         }
-
-        if (body.success) {
+        if (body.success === true) {
             let htmlStr = ``
             body.data.forEach(imgObj => {
                 htmlStr += `<div class="col">
@@ -37,6 +36,9 @@ function getCategoryImages() {
             })
             document.querySelector('#categoryImagesGridId').innerHTML += htmlStr
             pageNoAndFlagObj.scrollFlag = false
+        }
+        else {
+            alert(body.msg)
         }
     })
 }

@@ -13,6 +13,10 @@ document.querySelector('#addCategoryFormId').addEventListener("submit", (e) => {
         alert('Category Sub Title is required.')
         return false
     }
+    if (! catCoverImage) {
+        alert('image is required.')
+        return false
+    }
     const supportedFileType = ["image/png", "image/jpg", "image/jpeg"]
     if (! supportedFileType.includes(catCoverImage.type)) {
         alert("file type must be image/png or image/jpeg")
@@ -32,10 +36,13 @@ document.querySelector('#addCategoryFormId').addEventListener("submit", (e) => {
             localStorage.removeItem('access_token')
             window.location.href = '/admin/login'
         }
-
-        if (body.success) {
+        if (body.success === true) {
             alert(body.msg)
             window.location.href = '/admin/'
+        }
+        else {
+            alert(body.msg)
+            document.querySelector('#addCategoryFormId').reset()
         }
     })
 })

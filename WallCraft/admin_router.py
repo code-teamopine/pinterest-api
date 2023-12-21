@@ -37,7 +37,7 @@ async def api_login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
 
 @router.get('/api/category')
 async def api_get_all_category(page_no: int, user_dict: auth.verify_token_dep) -> dict:
-    return await services.get_all_categories(page_no=page_no)
+    return await services.get_all_categories(page_no=page_no, is_for_admin=1)
 
 @router.get('/api/search/category')
 async def api_get_all_category(search: str|None, user_dict: auth.verify_token_dep) -> dict:
@@ -49,14 +49,20 @@ async def api_add_category(user_dict: auth.verify_token_dep, cat_name: Annotated
         return {'success': True, 'msg': 'file type must be image/png or image/jpeg'}
     return await services.add_category(cat_name=cat_name, cat_cover_image=cat_cover_image, cat_is_active=cat_is_active, cat_sub_title=cat_sub_title)
 
+@router.post('/api/image/add')
+async def api_add_image(user_dict: auth.verify_token_dep, cat_id: Annotated[int, Form()], img_is_active: Annotated[bool, Form()], img_file: Annotated[UploadFile, File(media_type="image/png, image/jpeg, image/jpg")]) -> dict:
+    if img_file.content_type not in ["image/png", "image/jpeg", "image/jpg"]:
+        return {'success': True, 'msg': 'file type must be image/png or image/jpeg'}
+    return await services.add_image(cat_id=cat_id, img_is_active=img_is_active, img_file=img_file)
+
 @router.get('/api/category/{cat_id}')
 async def api_get_category(cat_id: int, user_dict: auth.verify_token_dep) -> dict:
-    return await services.get_category(cat_id=cat_id)
+    return await services.get_category(cat_id=cat_id, is_for_admin=1)
 
 @router.get('/api/category/{cat_id}/images')
 async def api_get_category_images(cat_id: int, page_no: int, user_dict: auth.verify_token_dep) -> dict:
-    return await services.get_category_images(cat_id=cat_id, page_no=page_no)
+    return await services.get_category_images(cat_id=cat_id, page_no=page_no, is_for_admin=1)
 
 @router.get('/api/image/{img_id}')
 async def api_get_image(img_id: int, user_dict: auth.verify_token_dep) -> dict:
-    return await services.get_image(img_id=img_id)
+    return await services.get_image(img_id=img_id, is_for_admin=1)

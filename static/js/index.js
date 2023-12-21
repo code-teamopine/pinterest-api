@@ -8,8 +8,7 @@ function getCategory() {
             localStorage.removeItem('access_token')
             window.location.href = '/admin/login'
         }
-
-        if (body.success) {
+        if (body.success === true) {
             let htmlStr = ``
             body.data.forEach(categoryObj => {
                 htmlStr += `<div class="col">
@@ -26,6 +25,9 @@ function getCategory() {
             })
             document.querySelector('#categoryGridDivId').innerHTML += htmlStr
             pageNoAndFlagObj.scrollFlag = false
+        }
+        else {
+            alert(body.msg)
         }
     })
 }
