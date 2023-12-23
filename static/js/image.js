@@ -6,9 +6,9 @@ document.querySelector('#selectMobileViewDevice').addEventListener('change', (e)
         iphone1212Pro1313Pro14: {iphoneMocup: {height: '844px', width: '390px'}, iphoneInnerBorder: {height: '824px', width: '370px'}},
         iphoneX11Pro12Mini13Mini: {iphoneMocup: {height: '812px', width: '375px'}, iphoneInnerBorder: {height: '792px', width: '355px'}},
         iphoneXR1111ProMax: {iphoneMocup: {height: '896px', width: '414px'}, iphoneInnerBorder: {height: '876px', width: '394px'}},
-        iphoneSE2nd3rdGen: {iphoneMocup: {height: '666px', width: '375px'}, iphoneInnerBorder: {height: '742px', width: '355px'}}
+        iphoneSE2nd3rdGen: {iphoneMocup: {height: '568px', width: '320px'}, iphoneInnerBorder: {height: '548px', width: '300px'}}
     }
-    
+
     document.querySelector('.iphone-mocup').style.height = iPhoneDevicesObj[e.target.value].iphoneMocup.height, document.querySelector('.iphone-mocup').style.width = iPhoneDevicesObj[e.target.value].iphoneMocup.width
     document.querySelector('.iphone-inner-border').style.height = document.querySelector('.img-div').style.height = iPhoneDevicesObj[e.target.value].iphoneInnerBorder.height, document.querySelector('.iphone-inner-border').style.width = document.querySelector('.img-div').style.width = iPhoneDevicesObj[e.target.value].iphoneInnerBorder.width
 })
