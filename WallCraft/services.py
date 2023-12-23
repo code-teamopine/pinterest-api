@@ -118,8 +118,9 @@ async def get_all_categories(page_no: int|None, search: str|None = None, is_for_
         query_str = "select cat_id, cat_name, concat('static/', cat_cover_image) as cat_cover_image, cat_sub_title" 
         query_str += ", cat_is_active" if is_for_admin == 1 else ""
         query_str += " from category "
-        query_str += "" if is_for_admin == 1 else " where cat_is_active = 1"
-        query_str += "limit %s offset %s"
+        query_str += "" if is_for_admin == 1 else "where cat_is_active = 1"
+        query_str += " limit %s offset %s"
+        print(query_str)
         data_tuple = db_obj.select(query_str=query_str, query_params=(20, (page_no -1) * 20)) if search is None else db_obj.select(query_str="select cat_id, cat_name from category where cat_is_active = 1 and cat_name like %s", query_params=(search + '%'))
         response_dict = {'success': True, 'data': data_tuple} if data_tuple else {'success': False, 'msg': 'no data found!'}
     except Exception as e:
