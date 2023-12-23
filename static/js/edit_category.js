@@ -13,7 +13,7 @@ function getCategoryData() {
             document.querySelector('#catCoverImageId').src = '/' + catApiDataObj.catCoverImg, document.querySelector('#catNameInput').value = catApiDataObj.catName, document.querySelector('#catSubTitleInput').value = catApiDataObj.catSubTitle, document.querySelector('#catIsActiveCheckBox').checked = catApiDataObj.catIsActive
         }
         else {
-            alert(body.msg)
+            console.log(body.msg)
             window.location.href = `/admin/`
         }
     })

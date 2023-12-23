@@ -28,7 +28,7 @@ function getCategory() {
             pageNoAndFlagObj.scrollFlag = false
         }
         else {
-            alert(body.msg)
+            console.log(body.msg)
         }
     })
 }

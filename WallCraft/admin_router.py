@@ -36,6 +36,10 @@ async def edit_image(request: Request, img_id: int):
 async def category(request: Request, cat_id: int):
     return templates.TemplateResponse("category.html", {"request": request, 'cat_id': cat_id})
 
+@router.get('/image/{img_id}', response_class=HTMLResponse)
+async def image(request: Request, img_id: int):
+    return templates.TemplateResponse("image.html", {"request": request, 'img_id': img_id})
+
 @router.post('/api/login')
 async def api_login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     user_dict = await auth.authencticate_admin(username=form_data.username, password=form_data.password)

@@ -15,7 +15,8 @@ function getCategoryData() {
             forScrollerSet(pageNoAndFlagObj, getCategoryImages, '#categoryImagesGridId')
         }
         else {
-            alert(body.msg)
+            console.log(body.msg)
+            window.location.href = `/admin/`
         }
     })
 }
@@ -33,11 +34,12 @@ function getCategoryImages() {
             body.data.forEach(imgObj => {
                 htmlStr += `<div class="col">
                                 <div class="card" style="width: 18rem;">
-                                    <img src="/${imgObj.img_file}" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <a class="btn btn-warning btn-sm" href="/admin/image/edit/${imgObj.img_id}">Edit</a>
-                                        <span>Active - <i class="${imgObj.img_is_active ? "bi bi-check-circle" : "bi bi-x-circle"}"></i></span>
-                                    </div>
+                                    <a href="/admin/image/${imgObj.img_id}">
+                                        <img src="/${imgObj.img_file}" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <span>Active - <i class="${imgObj.img_is_active ? "bi bi-check-circle" : "bi bi-x-circle"}"></i></span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>`
             })
@@ -45,7 +47,7 @@ function getCategoryImages() {
             pageNoAndFlagObj.scrollFlag = false
         }
         else {
-            alert(body.msg)
+            console.log(body.msg)
         }
     })
 }
