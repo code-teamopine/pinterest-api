@@ -130,7 +130,7 @@ async def get_all_categories(page_no: int|None, search: str|None = None, is_for_
 async def get_category(cat_id: int, is_for_admin: int = 0) -> dict: 
     db_obj = Mysql()
     try:    
-        query_str = "select cat_name, cat_sub_title, concat('static/', cat_cover_image) as cat_cover_image"
+        query_str = "select cat_id, cat_name, cat_sub_title, concat('static/', cat_cover_image) as cat_cover_image"
         query_str += ", cat_is_active" if is_for_admin == 1 else ""
         query_str += " from category where cat_id = %s"
         query_str += "" if is_for_admin == 1 else " and cat_is_active = 1"
