@@ -2,14 +2,33 @@ from database import Mysql
 from fastapi import UploadFile
 from datetime import datetime
 from random import randint
+from PIL import Image
+import os
 
-async def add_category(cat_name: str, cat_is_active: bool, cat_sub_title: str, cat_cover_image: UploadFile) -> dict:
+async def validate_image(img_file: UploadFile) -> dict|None:
+    if img_file.content_type not in ["image/png", "image/jpeg", "image/jpg"]:
+        return {'success': False, 'msg': 'file type must be image/png or image/jpeg'}
+    file_name = 'images/' + str(randint(1000, 10000)) + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.' + img_file.filename.split('.')[-1].lower()
+    with Image.open(img_file.file) as image:
+        image.save(f"./static/{file_name}")
+        width, height = image.size
+    if width < 320 and height < 568:
+        os.remove(f"./static/{file_name}")
+        response_dict =  {'success': False, 'msg': 'please maintain minimul image height & width.'}
+    else:
+        aspect_ratio = round(height / width, 2)
+        if aspect_ratio >= 1.75 and aspect_ratio <= 2.75:
+            response_dict = {'success': True, 'file_name': file_name}
+        else:
+            os.remove(f"./static/{file_name}")
+            {'success': False, 'msg': 'please enter proper image with height & width'}
+    return response_dict
+
+
+async def add_category(cat_name: str, cat_is_active: bool, cat_sub_title: str, cat_cover_image: str) -> dict:
     db_obj = Mysql()
     try:
-        file_name, file_content = 'images/' + str(randint(1000, 10000)) + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.' + cat_cover_image.filename.split('.')[-1].lower(), await cat_cover_image.read()
-        db_obj.insert_update_delete(query_str="insert into category(cat_name, cat_sub_title, cat_cover_image, cat_is_active) values(%s, %s, %s, %s)", query_params=(cat_name, cat_sub_title, file_name, cat_is_active))
-        with open(f"./static/{file_name}", "wb") as file_obj:
-            file_obj.write(file_content)
+        db_obj.insert_update_delete(query_str="insert into category(cat_name, cat_sub_title, cat_cover_image, cat_is_active) values(%s, %s, %s, %s)", query_params=(cat_name, cat_sub_title, cat_cover_image, cat_is_active))
         response_dict = {'success': True, 'msg': 'category created successfully.'}
     except Exception as e:
         db_obj.rollback()
@@ -18,7 +37,7 @@ async def add_category(cat_name: str, cat_is_active: bool, cat_sub_title: str, c
         del db_obj
     return response_dict
 
-async def edit_image(img_id: int, img_is_active: bool|None = None, cat_id: int|None = None, img_file: UploadFile|None = None) -> dict:
+async def edit_image(img_id: int, img_is_active: bool|None = None, cat_id: int|None = None, img_file: str|None = None) -> dict:
     db_obj = Mysql()
     try:
         img_dict, edit_flag, update_query_str, query_params = db_obj.select(query_str="select img_id from images where img_id = %s", query_params=(img_id), is_fetch_one=True), False, "update images set ", []
@@ -31,12 +50,9 @@ async def edit_image(img_id: int, img_is_active: bool|None = None, cat_id: int|N
                 update_query_str, edit_flag = update_query_str + "category_id = %s", True
                 query_params.append(cat_id)
             if img_file:
-                file_name, file_content = 'images/' + str(randint(1000, 10000)) + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.' + img_file.filename.split('.')[-1].lower(), await img_file.read()
                 update_query_str += ', ' if edit_flag else ' '
                 update_query_str, edit_flag = update_query_str + "img_file = %s", True
-                query_params.append(file_name)
-                with open(f"./static/{file_name}", "wb") as file_obj:
-                    file_obj.write(file_content)
+                query_params.append(img_file)
             if edit_flag:
                 query_params.append(img_id)
                 update_query_str += " where img_id = %s"
@@ -53,7 +69,7 @@ async def edit_image(img_id: int, img_is_active: bool|None = None, cat_id: int|N
         del db_obj
     return response_dict
 
-async def edit_category(cat_id: int, cat_name: str|None = None, cat_is_active: str|None = None, cat_sub_title: str|None = None, cat_cover_image: UploadFile|None = None) -> dict:
+async def edit_category(cat_id: int, cat_name: str|None = None, cat_is_active: str|None = None, cat_sub_title: str|None = None, cat_cover_image: str|None = None) -> dict:
     db_obj = Mysql()
     try:
         cat_dict, edit_flag, update_query_str, query_params = db_obj.select(query_str="select cat_id from category where cat_id = %s", query_params=(cat_id), is_fetch_one=True), False, "update category set ", []
@@ -70,12 +86,9 @@ async def edit_category(cat_id: int, cat_name: str|None = None, cat_is_active: s
                 update_query_str, edit_flag = update_query_str + "cat_is_active = %s", True
                 query_params.append(cat_is_active)
             if cat_cover_image:
-                file_name, file_content = 'images/' + str(randint(1000, 10000)) + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.' + cat_cover_image.filename.split('.')[-1].lower(), await cat_cover_image.read()
                 update_query_str += ', ' if edit_flag else ' '
                 update_query_str, edit_flag = update_query_str + "cat_cover_image = %s", True
-                query_params.append(file_name)
-                with open(f"./static/{file_name}", "wb") as file_obj:
-                    file_obj.write(file_content)
+                query_params.append(cat_cover_image)
             if edit_flag:
                 query_params.append(cat_id)
                 update_query_str += " where cat_id = %s"
@@ -92,15 +105,12 @@ async def edit_category(cat_id: int, cat_name: str|None = None, cat_is_active: s
         del db_obj
     return response_dict
 
-async def add_image(cat_id: int, img_is_active: bool, img_file: UploadFile) -> dict:
+async def add_image(cat_id: int, img_is_active: bool, file_name: str) -> dict:
     db_obj = Mysql()
     try:
         cat_data_id = db_obj.select(query_str="select cat_id from category where cat_id = %s", query_params=(cat_id), is_fetch_one=True)
         if cat_data_id:
-            file_name, file_content = 'images/' + str(randint(1000, 10000)) + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.' + img_file.filename.split('.')[-1].lower(), await img_file.read()
             db_obj.insert_update_delete(query_str="insert into images(img_file, category_id, img_is_active) values(%s, %s, %s)", query_params=(file_name, cat_id, img_is_active))
-            with open(f"./static/{file_name}", "wb") as file_obj:
-                file_obj.write(file_content)
             response_dict = {'success': True, 'msg': 'image added successfully.'}
         else:
             response_dict = {'success': False, 'msg': f'category not found on this:- {cat_id} id.'}
