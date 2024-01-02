@@ -14,15 +14,12 @@ async def validate_image(img_file: UploadFile) -> dict|None:
         width, height = image.size
     if width < 320 and height < 568:
         os.remove(f"./static/{file_name}")
-        response_dict =  {'success': False, 'msg': 'please maintain minimul image height & width.'}
-    else:
-        aspect_ratio = round(height / width, 2)
-        if aspect_ratio >= 1.75 and aspect_ratio <= 2.75:
-            response_dict = {'success': True, 'file_name': file_name}
-        else:
-            os.remove(f"./static/{file_name}")
-            {'success': False, 'msg': 'please enter proper image with height & width'}
-    return response_dict
+        return {'success': False, 'msg': 'please maintain minimul image height & width.'}
+    aspect_ratio = round(height / width, 2)
+    if aspect_ratio >= 1.75 and aspect_ratio <= 2.75:
+        return {'success': True, 'file_name': file_name}
+    os.remove(f"./static/{file_name}")
+    return {'success': False, 'msg': 'please enter proper image with height & width'}
 
 
 async def add_category(cat_name: str, cat_is_active: bool, cat_sub_title: str, cat_cover_image: str) -> dict:
