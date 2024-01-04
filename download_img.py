@@ -19,7 +19,8 @@ def download_image(url, index):
     else:
         print(f"{index + 1}. Failed to download the image. HTTP status code:", response.status_code)
 
-url_list = pd.read_parquet(f'Scrapper/dataFiles/{category}.parquet')['imgSrc'].to_list()
-for index, url in enumerate(url_list, 0):  # Start the index at 1
-    download_image(url, index)
-pd.DataFrame(new_data_list).to_parquet(f'Scrapper/dataFiles/{category}.parquet', index=False)
+url_list = pd.read_parquet(f'Scrapper/dataFiles/{category}.parquet').to_dict('records')[0]
+print(url_list)
+# for index, url in enumerate(url_list, 0):  # Start the index at 1
+#     download_image(url, index)
+# pd.DataFrame(new_data_list).to_parquet(f'Scrapper/dataFiles/{category}.parquet', index=False)
