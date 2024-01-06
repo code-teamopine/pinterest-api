@@ -7,7 +7,7 @@ import pandas as pd
 import time
 
 driver, hrefsList, imgSrcList = webdriver.Chrome(service=Service(ChromeDriverManager().install())), [], []
-driver.get("https://wallspic.com/album/motorcycles/1440x2960")
+driver.get("https://wallspic.com/tag/lake/1440x2960")
 time.sleep(6)
 
 def scrolller() -> None:
@@ -32,13 +32,14 @@ def image_scrapper() -> None:
             imgTag = divSoup.find('img')
             if imgTag:
                 print(imgTag['src'])
-                imgSrcList.append({"category": 'motorcycles', "imgSrc": imgTag['src']})
+                imgSrcList.append({"category": 'winter', "imgSrc": imgTag['src']})
 
 scrolller()
 scrolller()
 scrolller()
 scrolller()
 scrolller()
+scrolller()
 image_scrapper()
-pd.DataFrame(imgSrcList).to_parquet('dataFiles/motorcycles.parquet', index=False)
+pd.DataFrame(imgSrcList).to_parquet('dataFiles/lake.parquet', index=False)
 driver.quit()
