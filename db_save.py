@@ -2,7 +2,7 @@ from database import Mysql
 import pandas as pd, hashlib
 
 def main() -> None:
-    data_list = pd.read_parquet('Scrapper/dataFiles/aviation.parquet').to_dict('records')
+    data_list = pd.read_parquet('Scrapper/dataFiles/flowers.parquet').to_dict('records')
     for data_dict in data_list:
         database_obj = Mysql()
         try:
