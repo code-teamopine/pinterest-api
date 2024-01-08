@@ -6,15 +6,15 @@ from random import randint
 import pandas as pd
 
 new_data_list = []
-category = 'food_and_drink'
+category = 'abstract'
 
 def download_image(url, index):
     response = requests.get(url)
     if response.status_code == 200:
-        image_data = response.content
+        image_data, img_name = response.content, 'images/' + str(randint(1000, 10000)) + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.' + url.split('.')[-1]
+        with open (f"static/{img_name}", 'wb') as f:
+            f.write(image_data)
         print(url)
-        img, img_name = Image.open(BytesIO(image_data)), 'images/' + str(randint(1000, 10000)) + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.' + url.split('.')[-1]
-        img.save(f"static/{img_name}")
         print(f"{index + 1}. Image downloaded and saved as {img_name}")
         print("\n")
         new_data_list.append({'category': category, 'imgSrc': url, 'imgFile': img_name})
