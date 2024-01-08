@@ -27,12 +27,12 @@ def image_scrapper() -> None:
         except Exception:
             img = None
         if img:
-            imgSrcList.append({'category': 'motorcycles', 'imgSrc': img.get_attribute('src')})
+            imgSrcList.append({'category': 'couple', 'imgSrc': img.get_attribute('src')})
 
-for i in range(1, 29):
-    driver.get(f"https://hdqwalls.com/category/bikes-wallpapers/1440x2960/page/{i}")
+for i in range(1, 18):
+    driver.get(f"https://hdqwalls.com/category/love-wallpapers/1440x2960/page/{i}")
     time.sleep(6)
     href_scrapper()
 image_scrapper()
 driver.quit()
-pd.DataFrame(imgSrcList).to_parquet('dataFiles/motorcycles.parquet', index=False)
+pd.DataFrame(imgSrcList).to_parquet('dataFiles/couple.parquet', index=False)
