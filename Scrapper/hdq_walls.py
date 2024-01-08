@@ -30,9 +30,9 @@ def image_scrapper() -> None:
             imgSrcList.append({'category': 'couple', 'imgSrc': img.get_attribute('src')})
 
 for i in range(1, 18):
-    driver.get(f"https://hdqwalls.com/category/love-wallpapers/1440x2960/page/{i}")
+    driver.get(f"https://hdqwalls.com/category/games-wallpapers/1440x2960/page/{i}")
     time.sleep(6)
     href_scrapper()
 image_scrapper()
 driver.quit()
-pd.DataFrame(imgSrcList).to_parquet('dataFiles/couple.parquet', index=False)
+pd.DataFrame(imgSrcList).to_parquet('dataFiles/games.parquet', index=False)
