@@ -6,7 +6,7 @@ from random import randint
 import pandas as pd
 
 new_data_list = []
-category = 'abstract'
+category = 'cars'
 
 def download_image(url, index):
     response = requests.get(url)
