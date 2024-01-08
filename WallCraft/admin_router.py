@@ -44,7 +44,7 @@ async def image(request: Request, img_id: int):
 async def api_login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     user_dict = await auth.authencticate_admin(username=form_data.username, password=form_data.password)
     if user_dict:
-        return {'success': True, 'token': await auth.create_access_token(user_dict=user_dict, expiry_time_duration=timedelta(minutes=30))}
+        return {'success': True, 'token': await auth.create_access_token(user_dict=user_dict, expiry_time_duration=timedelta(minutes=1440))}
     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='username or password invalid.')
 
 @router.get('/api/category')
