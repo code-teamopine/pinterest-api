@@ -156,7 +156,7 @@ async def get_category_images(cat_id: int, page_no: int, is_for_admin: int = 0) 
         query_str += ", img_is_active" if is_for_admin == 1 else ""
         query_str += " from category inner join images on cat_id = category_id and category_id = %s"
         query_str += "" if is_for_admin == 1 else " and cat_is_active = 1 and img_is_active = 1"
-        query_str += " limit %s offset %s"
+        query_str += " order by img_id desc limit %s offset %s"
         cat_images_tuple = db_obj.select(query_str=query_str, query_params=(cat_id, 20, (page_no - 1) * 20))
         response_dict = {'success': True, 'data': cat_images_tuple} if cat_images_tuple else {'success': False, 'msg': 'no data found!'}
     except Exception as e:
