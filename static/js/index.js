@@ -11,18 +11,21 @@ function getCategory() {
         if (body.success === true) {
             let htmlStr = ``
             body.data.forEach(categoryObj => {
-                htmlStr += `<div class="col">
-                                <div class="card" style="width: 18rem;">
-                                    <a href="/admin/category/${categoryObj.cat_id}" class="text-decoration-none">
-                                        <img src="/${categoryObj.cat_cover_image}" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${categoryObj.cat_name}</h5>
-                                            <p class="card-text">${categoryObj.cat_sub_title}</p>
-                                            <span>Active </span><i class="${categoryObj.cat_is_active ? "bi bi-check-circle" : "bi bi-x-circle"}"></i>
+                htmlStr += `<div class="col-lg mb-3">
+                                    <div class="card category-card">
+                                            <a href="/admin/category/${categoryObj.cat_id}" class="text-decoration-none">
+                                                <div class="card-img">
+                                                    <img src="/${categoryObj.cat_cover_image}" class="card-img-top" alt="...">
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${categoryObj.cat_name}</h5>
+                                                    <p title="${categoryObj.cat_sub_title}" class="card-text">${categoryObj.cat_sub_title}</p>
+                                                <button  <span> Active </span></button>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
-                                </div>
-                            </div>`
+                                    </div>
+                            `
             })
             document.querySelector('#categoryGridDivId').innerHTML += htmlStr
             pageNoAndFlagObj.scrollFlag = false

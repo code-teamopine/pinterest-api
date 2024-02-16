@@ -1,16 +1,37 @@
 {% extends "base.html" %}
 {% block title %}Category | Admin{% endblock %}
+{% block css %}
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
 {% block body %}
     <section>
-        <div class="container">
-            <div class="row mt-3">
-                <a id="editCategoryBtnId">Edit Category</a>
+        <div class="container-fluid">
+            <div class="top-btn">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-lg-4">
+                        <div class="header-logo">
+                            <a class="navbar-brand" href="#">LOGO</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <ul>
+                            <li href="#">Home</li>
+                            <li href="#">Category</li>
+                            <li href="#">Log out</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2">
+                    <a id="editCategoryBtnId">Edit Category</a>
+                    </div>
+                   
+                </div>
             </div>
-            <div class="row mt-5">
-                <h4>Category: <span id="catNameId"></span></h4>
-                <h6>Sub Title: <span id="catSubTitleId"></span></h6>
+            <div class="col text-center my-3">
+                <h4> <span id="catNameId"></span></h4>
+                <h6> <span id="catSubTitleId"></span></h6>
             </div>
             <div class="row" id="categoryImagesGridId">
+              
             </div>
         </div>
     </section>
@@ -21,3 +42,4 @@
     </script>
     <script src="{{ url_for('static', path='/js/category.js') }}"></script>
 {% endblock %}
++

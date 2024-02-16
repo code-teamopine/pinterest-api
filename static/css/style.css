@@ -1,0 +1,246 @@
+#loginFormId{
+    background: #FFF;
+    padding: 50px 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+#loginFormId input{
+    border: none;
+    border-bottom: 1px solid #030303;
+    border-radius: 0;
+    padding-left: 0;
+}
+#loginFormId button{
+    padding: 7px 50px;
+}
+
+.form-control:focus {
+    border-color: #ced4da !important;
+    box-shadow: none !important;
+}
+
+.category{
+    margin-bottom: 20px;
+}
+
+
+.category-card  .card-body{
+    text-align: center;
+    color: #000;
+}
+.card-text{
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    opacity: 0.7;
+}
+#categoryGridDivId .col-lg{
+    flex: 0 0 auto;
+    width: 20%;
+}
+#categoryImagesGridId .col-lg{
+    flex: 0 0 auto;
+    width: 20%;
+}
+.card-img{
+    
+    height: 500px;
+    overflow: hidden;
+}
+.card-img img{
+    height: 100%;
+    object-fit: cover;
+}
+
+.top-btn{
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    padding: 15px 0;
+    z-index:99;
+    border-bottom: 1px solid #c2cdff;
+}
+.top-btn a{
+    background-color: #3455E3;
+    display: inline-block;
+    padding: 8px 20px 10px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+   
+}
+.card-title{
+    color: #3455E3;
+    text-transform: capitalize;
+}
+.card-body button{
+    background-color:#3455E3;
+    color: white;
+    border:none;
+    padding: 8px 20px;
+    border-radius: 5px;
+}
+.top-btn h6{
+    color: #000;
+    opacity: 0.7;
+}
+.edit-Img-Btn  a{
+    background-color: #3455E3;
+    display: inline-block;
+    padding: 8px 20px 10px;
+    text-decoration: none;
+    color: white !important;
+    border-radius: 5px;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #000;
+    text-decoration: none;
+    background-color: #e9ecef;
+}
+.inactiveBtn{
+    background-color: #dc3545 !important;
+}
+
+.center-btn button{
+    padding: 7px 50px;
+    background-color: #3455E3;    
+}
+.edit-img{
+    height: 150px;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.edit-img img{
+    height: 100%;
+    object-fit:cover;
+   
+   
+}
+#editImageFormId{
+    background: #FFF;
+    padding: 50px 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+#addImageFormId{
+    background: #FFF;
+    padding: 50px 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+.center-btn{
+    text-align: center;
+}
+.btn-primary:focus{
+    box-shadow: none !important;
+    
+}
+.iphonemocup-center{
+    text-align: center;
+}
+.mobile-center{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.center-btn button{
+    padding: 7px 50px;
+    background-color: #3455E3;    
+}
+
+#addCategoryFormId{
+    background: #FFF;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25)
+}
+#editCategoryFormId{
+    background: #FFF;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25)
+}
+/* .top-btn{
+    display: flex;
+    display: inline-block;
+}
+.top-btn ul{
+    display: flex;
+    list-style: none;
+} */
+.top-btn {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+
+.header-logo a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: right;
+}
+
+li {
+    margin-right: 20px;
+    font-family: 'Inter', sans-serif;
+
+
+}
+
+li:last-child {
+    margin-right: 0;
+}
+.header-logo{
+    left: 30px;
+    position: relative;
+}
+@media (max-width: 1199px){
+    #categoryGridDivId .col-lg{
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    #categoryImagesGridId .col-lg{
+        flex: 0 0 auto;
+        width: 25%;
+    }
+    
+}
+@media (max-width: 991px){
+    #categoryGridDivId .col-lg{
+        flex: 0 0 auto;
+        width: 33%;
+    }
+    #categoryImagesGridId .col-lg{
+        flex: 0 0 auto;
+        width: 33%;
+    }
+    
+}
+@media (max-width: 500px){
+    #categoryGridDivId .col-lg{
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    #categoryImagesGridId .col-lg{
+        flex: 0 0 auto;
+        width: 100%;
+    }
+    
+}

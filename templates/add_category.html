@@ -1,15 +1,27 @@
 {% extends "base.html" %}
 {% block title %}Add Category | Admin{% endblock %}
+{% block css %}
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet"/>
+{% endblock %}
 {% block body %}
     <div class="container mt-5">
-        <form id="addCategoryFormId" class="form-data" enctype="multipart/form-data">
-            <input type="text" class="form-control mb-3" id="catNameInput" name="catNameInput" placeholder="Enter Category Name" required>
-            <input type="text" class="form-control mb-3" id="catSubTitleInput" name="catSubTitleInput" placeholder="Enter Category Sub Title" required>
-            <input type="file" class="form-control mb-3" id="catCoverImageInput" name="catCoverImageInput" required>
-            <label class="form-check-label" for="catIsActiveCheckBox">is Active</label>
-            <input class="form-check-input" type="checkbox" value="" id="catIsActiveCheckBox" name="catIsActiveCheckBox" checked>
-            <input type="submit" class="btn btn-primary" value="Submit">
-        </form>
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <form id="addCategoryFormId" class="form-data" enctype="multipart/form-data">
+                    <input type="text" class="form-control mb-3" id="catNameInput" name="catNameInput" placeholder="Enter Category Name" required>
+                    <input type="text" class="form-control mb-3" id="catSubTitleInput" name="catSubTitleInput" placeholder="Enter Category Sub Title" required>
+                    <input type="file" class="form-control mb-3" id="catCoverImageInput" name="catCoverImageInput" required>
+                    <div class="active-check text-center">
+                        <input class="form-check-input" type="checkbox" value="" id="catIsActiveCheckBox" name="catIsActiveCheckBox" checked>
+                        <label class="form-check-label" for="catIsActiveCheckBox">is Active</label>
+                    </div>
+                    <div class="center-btn mt-3">
+                        <button class="btn btn-primary center-btn" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
     </div>
 {% endblock %}
 {% block js %}

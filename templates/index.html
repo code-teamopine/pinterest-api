@@ -1,24 +1,50 @@
 {% extends "base.html" %}
 {% block title %}Dashboard | Admin{% endblock %}
+{% block css %}
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700&family=Inter:wght@500;600;700&family=Lato:wght@700&family=Montserrat:wght@400;600&family=Noto+Serif:wght@600;700&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
+{% endblock %}
 {% block body %}
     <section>
-        <div class="container">
-            <div class="row mt-3">
-                <div class="col">
-                    <a href="/admin/category/add">Add Category</a>
+        <div class="container-fluid">
+        <div class="top-btn">
+                <div class="row justify-content-between  align-items-center">
+                    <div class="col-lg-4">
+                        <div class="header-logo">
+                            <a class="navbar-brand" href="#">LOGO</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                        <ul>
+                            <li href="#">Home</li>
+                            <li href="#">Category</li>
+                            <li href="#">Log out</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2">
+                        <a href="/admin/category/add">Add Category</a>
+                        <a href="/admin/image/add">Add Image</a>
+                    </div>
                 </div>
-                <div class="col">
-                    <a href="/admin/image/add">Add Image</a>
+                    <!-- <div class="col-auto">
+                        
+                        <a href="/admin/category/add">Add Category</a>
+                    </div>
+                    <div class="col-auto">
+                        <h4>Category</h4>
+                    </div>
+                    <div class="col-auto">
+                        <a href="/admin/image/add">Add Image</a>
+                    </div> -->
+                    
                 </div>
-            </div>
-            <div class="row mt-5">
-                <div class="col">
-                    <h4>Category</h4>
-                </div>
-            </div>
+        
+            
+           
             <div class="row" id="categoryGridDivId">
             </div>
         </div>
+   
     </section>
 {% endblock %}
 {% block js %}

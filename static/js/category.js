@@ -32,12 +32,14 @@ function getCategoryImages() {
         if (body.success === true) {
             let htmlStr = ``
             body.data.forEach(imgObj => {
-                htmlStr += `<div class="col">
-                                <div class="card" style="width: 18rem;">
+                htmlStr += `<div class="col-lg mb-3">
+                                <div class="card" >
                                     <a href="/admin/image/${imgObj.img_id}">
+                                    <div class="card-img">
                                         <img src="/${imgObj.img_file}" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <span>Active - <i class="${imgObj.img_is_active ? "bi bi-check-circle" : "bi bi-x-circle"}"></i></span>
+                                    </div>
+                                        <div class="card-body text-center">
+                                            <button class="${imgObj.img_is_active ? "activeBtn" : "inactiveBtn"}">  <span> ${imgObj.img_is_active ? "Active" : "Inactive" }</span></button> 
                                         </div>
                                     </a>
                                 </div>

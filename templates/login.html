@@ -3,17 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static', path='/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/bootstrap.min.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
     <title>Ai WallCraft Login | Admin</title>
 </head>
 <body>
     <div class="container mt-5">
-        <form id="loginFormId">
-            <input type="text" class="form-control mb-3" id="usernameInput" name="usernameInput" placeholder="Enter Username" required>
-            <input type="password" class="form-control mb-3" id="passwordInput" name="passwordInput" placeholder="Enter Password" required>
-            <input type="submit" class="btn btn-primary" value="Login">
-        </form>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-10">
+            <form id="loginFormId" class=" text-center">
+            <h3 class="text-center mb-4">WEL COME</h3>
+            <input type="text" class="form-control mb-4" id="usernameInput" name="usernameInput" placeholder=" Username" required />
+            <input type="password" class="form-control  mb-5" id="passwordInput" name="passwordInput" placeholder=" Password" required />
+            <button class="btn btn-primary " type="submit">Login</button>
+         </form>
     </div>
+</div>
+</div>
+
+
     <script src="{{ url_for('static', path='/js/popper.min.js') }}"></script>
     <script src="{{  url_for('static', path='/js/bootstrap.min.js') }}"></script>
 
