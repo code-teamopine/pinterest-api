@@ -2,3 +2,4 @@ env
 DB_DUMPS
 __pycache__
 venv/
+.idea/

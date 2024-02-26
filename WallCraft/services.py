@@ -5,6 +5,7 @@ from random import randint
 from PIL import Image
 import os
 
+
 async def validate_image(img_file: UploadFile) -> dict|None:
     if img_file.content_type not in ["image/png", "image/jpeg", "image/jpg"]:
         return {'success': False, 'msg': 'file type must be image/png or image/jpeg'}
@@ -16,7 +17,7 @@ async def validate_image(img_file: UploadFile) -> dict|None:
         os.remove(f"./static/{file_name}")
         return {'success': False, 'msg': 'please maintain minimul image height & width.'}
     aspect_ratio = round(height / width, 2)
-    if aspect_ratio >= 1.75 and aspect_ratio <= 2.75:
+    if 1.75 <= aspect_ratio <= 2.75:
         return {'success': True, 'file_name': file_name}
     os.remove(f"./static/{file_name}")
     return {'success': False, 'msg': 'please enter proper image with height & width'}
@@ -33,6 +34,7 @@ async def add_category(cat_name: str, cat_is_active: bool, cat_sub_title: str, c
     finally:
         del db_obj
     return response_dict
+
 
 async def edit_image(img_id: int, img_is_active: bool|None = None, cat_id: int|None = None, img_file: str|None = None) -> dict:
     db_obj = Mysql()
@@ -65,6 +67,7 @@ async def edit_image(img_id: int, img_is_active: bool|None = None, cat_id: int|N
     finally:
         del db_obj
     return response_dict
+
 
 async def edit_category(cat_id: int, cat_name: str|None = None, cat_is_active: str|None = None, cat_sub_title: str|None = None, cat_cover_image: str|None = None) -> dict:
     db_obj = Mysql()
@@ -102,6 +105,7 @@ async def edit_category(cat_id: int, cat_name: str|None = None, cat_is_active: s
         del db_obj
     return response_dict
 
+
 async def add_image(cat_id: int, img_is_active: bool, file_name: str) -> dict:
     db_obj = Mysql()
     try:
@@ -117,6 +121,7 @@ async def add_image(cat_id: int, img_is_active: bool, file_name: str) -> dict:
     finally:
         del db_obj
     return response_dict
+
 
 async def get_all_categories(page_no: int|None, search: str|None = None, is_for_admin: int = 0) -> dict:
     db_obj = Mysql()
@@ -134,6 +139,7 @@ async def get_all_categories(page_no: int|None, search: str|None = None, is_for_
         del db_obj
     return response_dict
 
+
 async def get_category(cat_id: int, is_for_admin: int = 0) -> dict: 
     db_obj = Mysql()
     try:    
@@ -148,6 +154,7 @@ async def get_category(cat_id: int, is_for_admin: int = 0) -> dict:
     finally:
         del db_obj
     return response_dict
+
 
 async def get_category_images(cat_id: int, page_no: int, is_for_admin: int = 0) -> dict:
     db_obj = Mysql()
@@ -164,6 +171,7 @@ async def get_category_images(cat_id: int, page_no: int, is_for_admin: int = 0) 
     finally:
         del db_obj
     return response_dict
+
 
 async def get_image(img_id: int, is_for_admin: int = 0) -> dict:
     db_obj = Mysql()

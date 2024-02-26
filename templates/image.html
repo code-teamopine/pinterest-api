@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Image | Admin{% endblock %}
 {% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet"/>
 {% endblock %}
 {% block body %}
@@ -9,23 +10,75 @@
         box-sizing: unset !important;
     }
 </style>
-    <section>
-        <div class="container">
-            <div class="iphonemocup-center ">
-                <div class="mobile-center">
-                <div class="iphone-mocup" style="width: 430px; height: 932px; border-radius: 45px; border: 4px solid grey;">
-                        <div class="iphone-inner-border" style="width: 410px; height: 912px; border-radius: 40px; border: 10px solid #000;">
-                            <div class="img-div" style="overflow: hidden; border-radius: 29px; width: 410px; height: 912px;">
-                                <img id="imgImgId" alt="img" style="object-fit: fill; width: 100%; height: 100%; border-radius: 29px;">
-                            </div>
+    <div class="modal fade" id="editImageModal" data-bs-backdrop="static" tabindex="-1" data-bs-keyboard="false" aria-labelledby="editImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="editImageFormId" class="form-data" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editImageModalLabel">Edit Image</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="col-lg-12 mb-3">
+                            <select class="form-control mb-3 edit-image-selectinput" data-dropdown-parent="#editImageModal" name="catNameSelect" id="catNameSelect"></select>
                         </div>
+                        <div class="edit-img">
+                            <img id="editImgId" alt="img" />
+                        </div>
+                        <input type="file" class="form-control my-3 imageInput-div" id="imageInput" name="imageInput">
+                        <div class="active-check text-center">
+                            <input class="form-check-input " type="checkbox" value="" id="imageIsActiveCheckBox" name="imageIsActiveCheckBox">
+                            <label class="form-check-label" for="imageIsActiveCheckBox">is Active</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="center-btn mt-3">
+                            <button class="btn btn-primary center-btn" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div class="container-fluid">
+            <div class="top-btn">
+                <div class="row justify-content-between  align-items-center">
+                    <div class="col-lg-6">
+                        <div class="header-logo">
+                            <a class="navbar-brand" href="/admin/">LOGO</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-right" >
+                        <ul class="cursor-pointer !important navigation-ui align-items-center"style="margin-right: 30px;">
+                            <li><a href="/admin/">Home</a></li>
+                            <li><a href="#" onclick="logout()">Log out</a></li>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editImageModal" id="editImgBtnId">Edit Image</button>
+                        </ul>
+                    </div>
                 </div>
             </div>
-               
-               <div class="edit-Img-Btn mb-3">
-                         <a id="editImgBtnId">Edit Image</a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <h1 class="text-center mb-4">View Image</h1>
+                
+                <div class="col-md-4">
+                    <div class="iphonemocup ">
+                        <div class="mobile">
+                            <div class="iphone-mocup" style="width: 430px; height: 932px; border-radius: 45px; border: 4px solid grey;">
+                                <div class="iphone-inner-border" style="width: 410px; height: 912px; border-radius: 40px; border: 10px solid #000;">
+                                    <div class="img-div" style="overflow: hidden; border-radius: 29px; width: 410px; height: 912px;">
+                                        <img id="imgImgId" alt="img" style="object-fit: fill; width: 100%; height: 100%; border-radius: 29px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                    <select name="selectMobileViewDevice" id="selectMobileViewDevice">
+                <div class="edit-Img-Btn view-image-div col-md-4 mb-3 text-center ">
+                    <select name="selectMobileViewDevice" id="selectMobileViewDevice" class="select-div">
                         <option value="iphone14ProMax15Plus15ProMax">iphone 14 pro max | 15 Plus | 15 Pro max</option>
                         <option value="iphone14Pro1515Pro">iPhone 14 pro | 15 | 15 Pro</option>
                         <option value="iphone12ProMax14Plus">iPhone 12 pro max | 14 plus</option>
@@ -33,24 +86,9 @@
                         <option value="iphoneX11Pro12Mini13Mini">iPhone X | 11 pro | 12 mini | 13 mini</option>
                         <option value="iphoneXR1111ProMax">iPhone XR | 11 | 11 pro max</option>
                         <option value="iphoneSE2nd3rdGen">iPhone SE(2nd | 3rd Gen.)</option> 
-                       
                     </select>
-                    <!-- <div class="dropdown">
-                        <a class="btn btn-secondary " href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                            selectMobileViewDevice
-                        </a>
-                      
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#" value="iphone14ProMax15Plus15ProMax">iphone 14 pro max | 15 Plus | 15 Pro max</a></li>
-                            <li><a class="dropdown-item" href="#" value="iphone14Pro1515Pro">iPhone 14 pro | 15 | 15 Pro</a></li>
-                            <li><a class="dropdown-item" href="#" value="iphone12ProMax14Plus">iPhone 12 pro max | 14 plus</a></li>
-                            <li><a class="dropdown-item" href="#" value="iphone1212Pro1313Pro14">iPhone 12 | 12 Pro | 13 | 13 Pro | 14</a></li>
-                            <li><a class="dropdown-item" href="#" value="iphoneX11Pro12Mini13Mini">iPhone X | 11 pro | 12 mini | 13 mini</a></li>
-                            <li><a class="dropdown-item" href="#" value="iphoneXR1111ProMax">iPhone XR | 11 | 11 pro max</a></li>
-                            <li><a class="dropdown-item" href="#"  value="iphoneSE2nd3rdGen">iPhone SE(2nd | 3rd Gen.)</a></li>
-                        </ul>
-                      </div> -->
-             </div>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}
@@ -58,5 +96,7 @@
     <script>
         const imgId = Number(`{{ img_id }}`)
     </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ url_for('static', path='/js/image.js') }}"></script>
 {% endblock %}

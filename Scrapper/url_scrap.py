@@ -10,6 +10,7 @@ driver, hrefsList, imgSrcList = webdriver.Chrome(service=Service(ChromeDriverMan
 driver.get("https://in.pinterest.com/")
 time.sleep(6)
 
+
 def mainScrapper(imageUrl: str, category: str, limit: int = 40) -> None:
     driver.get(imageUrl)
     time.sleep(5)
@@ -55,6 +56,7 @@ def mainScrapper(imageUrl: str, category: str, limit: int = 40) -> None:
                 imgSrcList.append({"category": category, "imgSrc": imgTag['src'].replace("/236x/", "/600x/")})
                 print(imgSrcList[-1])
                 scraped_images += 1
+
 
 driver.find_element(By.XPATH, """//div[@data-test-id="simple-login-button"]""").click()
 driver.find_element(By.XPATH, """//input[@id="email"]""").send_keys("bicica2345@dpsols.com")

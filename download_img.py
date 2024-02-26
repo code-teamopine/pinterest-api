@@ -8,6 +8,7 @@ import pandas as pd
 new_data_list = []
 category = 'cars'
 
+
 def download_image(url, index):
     response = requests.get(url)
     if response.status_code == 200:
@@ -20,6 +21,7 @@ def download_image(url, index):
         new_data_list.append({'category': category, 'imgSrc': url, 'imgFile': img_name})
     else:
         print(f"{index + 1}. Failed to download the image. HTTP status code:", response.status_code)
+
 
 # url_list = pd.read_parquet(f'Scrapper/dataFiles/{category}.parquet').to_dict('records')[0]
 # print(url_list)

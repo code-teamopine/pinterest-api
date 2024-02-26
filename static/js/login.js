@@ -29,3 +29,13 @@ document.querySelector('#loginFormId').addEventListener("submit", (e) => {
         }
     })
 })
+
+function checkLogin() {
+    if (localStorage.getItem('access_token')) {
+        window.location.href = '/admin/'
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    checkLogin()
+})

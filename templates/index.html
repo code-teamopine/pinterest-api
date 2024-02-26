@@ -1,52 +1,96 @@
 {% extends "base.html" %}
 {% block title %}Dashboard | Admin{% endblock %}
 {% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700&family=Inter:wght@500;600;700&family=Lato:wght@700&family=Montserrat:wght@400;600&family=Noto+Serif:wght@600;700&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
 {% endblock %}
 {% block body %}
+    <div class="modal fade" id="addCategoryModal" data-bs-backdrop="static" tabindex="-1" data-bs-keyboard="false" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="addCategoryFormId" class="form-data" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addCategoryModalLabel">Add Category</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12 mb-3">
+                            <input type="text" class="form-control mb-3 editCategoryForminput" id="catNameInput" name="catNameInput" placeholder="Enter Category Name">
+                            <input type="text" class="form-control mb-3 editCategoryForminput" id="catSubTitleInput" name="catSubTitleInput" placeholder="Enter Category Sub Title">
+                        </div>
+                        <input type="file" class="form-control mb-3 imageInput-div" id="catCoverImageInput" name="catCoverImageInput">
+                        <div class="active-check text-center">
+                            <input class="form-check-input" type="checkbox" value="" id="catIsActiveCheckBox" name="catIsActiveCheckBox">
+                            <label class="form-check-label" for="catIsActiveCheckBox">is Active</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="center-btn mt-3">
+                            <button class="btn btn-primary center-btn" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="AddImageModal" data-bs-backdrop="static" tabindex="-1" data-bs-keyboard="false" aria-labelledby="AddImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="addImageFormId" class="form-data" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="AddImageModalLabel">Add Image</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <input type="text" class="form-control mb-3" id="catNameInput" name="catNameInput" placeholder="Enter Category Name">
+                        <input type="text" class="form-control mb-3" id="catSubTitleInput" name="catSubTitleInput" placeholder="Enter Category Sub Title">
+                        <div class="edit-img mb-3">
+                            <img class="card" id="catCoverImageId" height="100px" width="100px" alt="img"/>
+                        </div>
+                        <input type="file" class="form-control mb-3" id="catCoverImageInput" name="catCoverImageInput">
+                        <div class="active-check text-center">
+                            <input class="form-check-input" type="checkbox" value="" id="catIsActiveCheckBox" name="catIsActiveCheckBox">
+                            <label class="form-check-label" for="catIsActiveCheckBox">is Active</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="center-btn mt-3">
+                            <button class="btn btn-primary center-btn" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <section>
         <div class="container-fluid">
-        <div class="top-btn">
+            <div class="top-btn">
                 <div class="row justify-content-between  align-items-center">
                     <div class="col-lg-4">
                         <div class="header-logo">
-                            <a class="navbar-brand" href="#">LOGO</a>
+                            <a class="navbar-brand" href="/admin/">LOGO</a>
                         </div>
                     </div>
                     <div class="col-lg-6 text-right">
-                        <ul>
-                            <li href="#">Home</li>
-                            <li href="#">Category</li>
-                            <li href="#">Log out</li>
+                        <ul class="cursor-pointer !important navigation-ui">
+                            <li><a href="/admin/">Home</a></li>
+                            <li><a href="#" onclick="logout()">Log out</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-2">
-                        <a href="/admin/category/add">Add Category</a>
-                        <a href="/admin/image/add">Add Image</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal" id="AddCatBtnId">Add Category</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddImageModal" id="AddImgBtnId">Add Image</button>
                     </div>
                 </div>
-                    <!-- <div class="col-auto">
-                        
-                        <a href="/admin/category/add">Add Category</a>
-                    </div>
-                    <div class="col-auto">
-                        <h4>Category</h4>
-                    </div>
-                    <div class="col-auto">
-                        <a href="/admin/image/add">Add Image</a>
-                    </div> -->
-                    
-                </div>
-        
-            
-           
-            <div class="row" id="categoryGridDivId">
             </div>
+            <div class="row" id="categoryGridDivId"></div>
         </div>
-   
     </section>
 {% endblock %}
 {% block js %}
-<script src="{{ url_for('static', path='/js/index.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ url_for('static', path='/js/index.js') }}"></script>
 {% endblock %}

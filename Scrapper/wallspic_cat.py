@@ -10,6 +10,7 @@ driver, hrefsList, imgSrcList = webdriver.Chrome(service=Service(ChromeDriverMan
 driver.get("https://wallspic.com/tag/couple/1440x2960")
 time.sleep(6)
 
+
 def scrolller() -> None:
     all_data_a_list = driver.find_elements(By.XPATH, """//a[@class="gallery_fluid-column-block"]""")
     for data_div in all_data_a_list:
@@ -17,6 +18,7 @@ def scrolller() -> None:
             hrefsList.append(data_div.get_attribute('href'))
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
     time.sleep(5)
+
 
 def image_scrapper() -> None:
     for href_link in hrefsList:
@@ -33,6 +35,7 @@ def image_scrapper() -> None:
             if imgTag:
                 print(imgTag['src'])
                 imgSrcList.append({"category": 'couple', "imgSrc": imgTag['src']})
+
 
 scrolller()
 scrolller()

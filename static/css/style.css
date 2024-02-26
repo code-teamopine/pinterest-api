@@ -44,7 +44,7 @@
     flex: 0 0 auto;
     width: 20%;
 }
-.card-img{
+.edit-Img-Btn{
     
     height: 500px;
     overflow: hidden;
@@ -53,7 +53,10 @@
     height: 100%;
     object-fit: cover;
 }
-
+.card-img{
+    overflow: hidden; 
+    height: 400px;
+}
 .top-btn{
     background-color: #fff;
     position: sticky;
@@ -69,7 +72,6 @@
     text-decoration: none;
     color: white;
     border-radius: 5px;
-   
 }
 .card-title{
     color: #3455E3;
@@ -123,12 +125,12 @@
    
    
 }
-#editImageFormId{
+/* #editImageFormId{
     background: #FFF;
     padding: 50px 50px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-}
+} */
 #addImageFormId{
     background: #FFF;
     padding: 50px 50px;
@@ -167,6 +169,48 @@
     border-radius: 5px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25)
 }
+.edit-image-selectinput{
+    border:1px solid #000 !important;
+}
+.imageInput-div{
+    border-radius: 50px !important;
+}
+.editCategoryForminput{
+    border-radius: 10px;
+}
+.navigation-ui li a{
+    background: transparent;
+    padding: 0;
+}
+
+.navigation-ui li {
+    margin-right: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.navigation-ui {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: right;
+}
+.select-div{
+    height: 45px;
+    padding: 9px;
+    background: #fff;
+    BORDER: NONE;
+    box-shadow: 0 0 5px 0px rgb(0 0 0 / 20%);
+}
+.select-div:focus-visible{
+    border: none;
+    outline: 0;
+}
+.select-div option{
+    background:transparent;
+    border:0;
+}
+
 /* .top-btn{
     display: flex;
     display: inline-block;
@@ -189,21 +233,6 @@
     font-weight: bold;
 }
 
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: right;
-}
-
-li {
-    margin-right: 20px;
-    font-family: 'Inter', sans-serif;
-
-
-}
-
 li:last-child {
     margin-right: 0;
 }
@@ -211,6 +240,17 @@ li:last-child {
     left: 30px;
     position: relative;
 }
+.select2-container--default .select2-selection--single{
+    height: 31px;
+}
+.select2-container{
+    width: 100% !important;
+}
+.btn-close:focus {
+    outline: 0;
+    box-shadow: none !important;
+    opacity: 1;
+  }
 @media (max-width: 1199px){
     #categoryGridDivId .col-lg{
         flex: 0 0 auto;
@@ -242,5 +282,11 @@ li:last-child {
         flex: 0 0 auto;
         width: 100%;
     }
+    .view-image-div{
+        margin-top:20px;
+
+    }
     
 }
+
+

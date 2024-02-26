@@ -10,6 +10,7 @@ driver, hrefsList, imgSrcList = webdriver.Chrome(service=Service(ChromeDriverMan
 driver.get("https://www.magicals.art/search/label/Cute%20Friends")
 time.sleep(6)
 
+
 def scrolller() -> None:
     try:
         all_data_a_list = driver.find_elements(By.XPATH, """//a[@class="thmb"]""")
@@ -23,6 +24,7 @@ def scrolller() -> None:
         time.sleep(6)
     except Exception as e:
         print("\n\n", e, "\n\n")
+
 
 scrolller()
 scrolller()

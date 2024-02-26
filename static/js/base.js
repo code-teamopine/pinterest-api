@@ -7,6 +7,11 @@ function forScrollerSet(pageNoAndFlagObj, callbackFunc, divIdStr) {
     infiniteScroll(pageNoAndFlagObj, callbackFunc, divIdStr)
 }
 
+function logout() {
+    localStorage.removeItem('access_token')
+    window.location.href = '/admin/login'
+}
+
 function infiniteScroll(pageNoAndFlagObj, callbackFunc, divIdStr) {
     window.addEventListener('scroll', function() {
         if (window.scrollY + window.innerHeight >= document.querySelector(divIdStr).scrollHeight) {

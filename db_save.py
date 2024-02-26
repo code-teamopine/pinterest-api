@@ -1,6 +1,7 @@
 from database import Mysql
 import pandas as pd, hashlib
 
+
 def main() -> None:
     data_list = pd.read_parquet('Scrapper/dataFiles/cars.parquet').to_dict('records')
     for data_dict in data_list:
@@ -15,6 +16,7 @@ def main() -> None:
         finally:
             del database_obj
 
+
 def add_user():
     db_obj = Mysql()
     try:
@@ -23,5 +25,6 @@ def add_user():
         print(e)
     finally:
         del db_obj
+
 
 main()
