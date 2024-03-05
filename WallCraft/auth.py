@@ -37,5 +37,5 @@ async def verify_token(token: Annotated[str, Depends(security.OAuth2PasswordBear
         return jwt.decode(token, SECRET_KEY, algorithms=ALGORITH)
     except Exception:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='token is invalid or expired.')
-    
+
 verify_token_dep = Annotated[dict, Depends(verify_token)]

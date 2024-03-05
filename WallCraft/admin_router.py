@@ -13,7 +13,7 @@ router, templates = APIRouter(prefix='/admin', tags=['Admin']), Jinja2Templates(
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
-    
+
 @router.get('/', response_class=HTMLResponse)
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
