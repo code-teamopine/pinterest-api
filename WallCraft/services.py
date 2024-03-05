@@ -6,7 +6,7 @@ from PIL import Image
 import os
 
 
-async def validate_image(img_file: UploadFile) -> dict|None:
+async def validate_image(img_file: UploadFile) -> dict | None:
     if img_file.content_type not in ["image/png", "image/jpeg", "image/jpg"]:
         return {'success': False, 'msg': 'file type must be image/png or image/jpeg'}
     file_name = 'images/' + str(randint(1000, 10000)) + '_' + datetime.now().strftime("%Y%m%d_%H%M%S_%f") + '.' + img_file.filename.split('.')[-1].lower()
@@ -15,7 +15,7 @@ async def validate_image(img_file: UploadFile) -> dict|None:
         width, height = image.size
     if width < 320 and height < 568:
         os.remove(f"./static/{file_name}")
-        return {'success': False, 'msg': 'please maintain minimul image height & width.'}
+        return {'success': False, 'msg': 'please maintain minimum image height & width.'}
     aspect_ratio = round(height / width, 2)
     if 1.75 <= aspect_ratio <= 2.75:
         return {'success': True, 'file_name': file_name}
@@ -36,10 +36,10 @@ async def add_category(cat_name: str, cat_is_active: bool, cat_sub_title: str, c
     return response_dict
 
 
-async def edit_image(img_id: int, img_is_active: bool|None = None, cat_id: int|None = None, img_file: str|None = None) -> dict:
+async def edit_image(img_id: int, img_is_active: bool | None = None, cat_id: int | None = None, img_file: str | None = None) -> dict:
     db_obj = Mysql()
     try:
-        img_dict, edit_flag, update_query_str, query_params = db_obj.select(query_str="select img_id from images where img_id = %s", query_params=(img_id), is_fetch_one=True), False, "update images set ", []
+        img_dict, edit_flag, update_query_str, query_params = db_obj.select(query_str="select img_id from images where img_id = %s", query_params=(img_id, ), is_fetch_one=True), False, "update images set ", []
         if img_dict:
             if img_is_active is not None:
                 update_query_str, edit_flag = update_query_str + "img_is_active = %s", True
@@ -69,10 +69,10 @@ async def edit_image(img_id: int, img_is_active: bool|None = None, cat_id: int|N
     return response_dict
 
 
-async def edit_category(cat_id: int, cat_name: str|None = None, cat_is_active: str|None = None, cat_sub_title: str|None = None, cat_cover_image: str|None = None) -> dict:
+async def edit_category(cat_id: int, cat_name: str | None = None, cat_is_active: str | None = None, cat_sub_title: str | None = None, cat_cover_image: str | None = None) -> dict:
     db_obj = Mysql()
     try:
-        cat_dict, edit_flag, update_query_str, query_params = db_obj.select(query_str="select cat_id from category where cat_id = %s", query_params=(cat_id), is_fetch_one=True), False, "update category set ", []
+        cat_dict, edit_flag, update_query_str, query_params = db_obj.select(query_str="select cat_id from category where cat_id = %s", query_params=(cat_id, ), is_fetch_one=True), False, "update category set ", []
         if cat_dict:
             if cat_name:
                 update_query_str, edit_flag = update_query_str + "cat_name = %s", True
@@ -109,7 +109,7 @@ async def edit_category(cat_id: int, cat_name: str|None = None, cat_is_active: s
 async def add_image(cat_id: int, img_is_active: bool, file_name: str) -> dict:
     db_obj = Mysql()
     try:
-        cat_data_id = db_obj.select(query_str="select cat_id from category where cat_id = %s", query_params=(cat_id), is_fetch_one=True)
+        cat_data_id = db_obj.select(query_str="select cat_id from category where cat_id = %s", query_params=(cat_id, ), is_fetch_one=True)
         if cat_data_id:
             db_obj.insert_update_delete(query_str="insert into images(img_file, category_id, img_is_active) values(%s, %s, %s)", query_params=(file_name, cat_id, img_is_active))
             response_dict = {'success': True, 'msg': 'image added successfully.'}
@@ -123,7 +123,7 @@ async def add_image(cat_id: int, img_is_active: bool, file_name: str) -> dict:
     return response_dict
 
 
-async def get_all_categories(page_no: int|None, search: str|None = None, is_for_admin: int = 0) -> dict:
+async def get_all_categories(page_no: int | None, search: str | None = None, is_for_admin: int = 0) -> dict:
     db_obj = Mysql()
     try:
         query_str = "select cat_id, cat_name, concat('static/', cat_cover_image) as cat_cover_image, cat_sub_title" 
@@ -131,7 +131,7 @@ async def get_all_categories(page_no: int|None, search: str|None = None, is_for_
         query_str += " from category "
         query_str += "" if is_for_admin == 1 else "where cat_is_active = 1"
         query_str += " limit %s offset %s"
-        data_tuple = db_obj.select(query_str=query_str, query_params=(20, (page_no -1) * 20)) if search is None else db_obj.select(query_str="select cat_id, cat_name from category where cat_is_active = 1 and cat_name like %s", query_params=(search + '%'))
+        data_tuple = db_obj.select(query_str=query_str, query_params=(20, (page_no - 1) * 20)) if search is None else db_obj.select(query_str="select cat_id, cat_name from category where cat_is_active = 1 and cat_name like %s", query_params=(search + '%'))
         response_dict = {'success': True, 'data': data_tuple} if data_tuple else {'success': False, 'msg': 'no data found!'}
     except Exception as e:
         response_dict = {'success': False, 'msg': str(e)}
@@ -147,7 +147,7 @@ async def get_category(cat_id: int, is_for_admin: int = 0) -> dict:
         query_str += ", cat_is_active" if is_for_admin == 1 else ""
         query_str += " from category where cat_id = %s"
         query_str += "" if is_for_admin == 1 else " and cat_is_active = 1"
-        cat_data_dict = db_obj.select(query_str=query_str, query_params=(cat_id), is_fetch_one=True)
+        cat_data_dict = db_obj.select(query_str=query_str, query_params=(cat_id, ), is_fetch_one=True)
         response_dict = {'success': True, 'data': cat_data_dict} if cat_data_dict else {'success': False, 'msg': 'no data found!'}
     except Exception as e:
         response_dict = {'success': False, 'msg': str(e)}
@@ -180,7 +180,7 @@ async def get_image(img_id: int, is_for_admin: int = 0) -> dict:
         query_str += ", cat_is_active, img_is_active" if is_for_admin == 1 else ""
         query_str += " from category inner join images on cat_id = category_id and img_id = %s"
         query_str += "" if is_for_admin == 1 else " and cat_is_active = 1 and img_is_active = 1"
-        img_data_dict = db_obj.select(query_str=query_str, query_params=(img_id), is_fetch_one=True)
+        img_data_dict = db_obj.select(query_str=query_str, query_params=(img_id, ), is_fetch_one=True)
         response_dict = {'success': True, 'data': img_data_dict} if img_data_dict else {'success': False, 'msg': 'no data found!'}
     except Exception as e:
         response_dict = {'success': False, 'msg': str(e)}
